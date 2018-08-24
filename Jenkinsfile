@@ -19,7 +19,6 @@ pipeline {
         }
         steps {
           container('maven') {
-            sh "telnet stash.gfk.com 443"
             sh "mvn versions:set -DnewVersion=$PREVIEW_VERSION"
             sh "mvn install"
             sh 'export VERSION=$PREVIEW_VERSION && skaffold build -f skaffold.yaml'
@@ -43,6 +42,7 @@ pipeline {
         steps {
           container('maven') {
             // ensure we're not on a detached head
+            sh "telnet stash.gfk.com 443"
             sh "git checkout master"
             sh "git config --global credential.helper store"
 
