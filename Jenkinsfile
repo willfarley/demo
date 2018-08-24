@@ -42,7 +42,7 @@ pipeline {
         steps {
           container('maven') {
             // ensure we're not on a detached head
-            sh "telnet stash.gfk.com 443"
+            sh "curl https://stash.gfk.com/rest/api/v1"
             sh "git checkout master"
             sh "git config --global credential.helper store"
 
