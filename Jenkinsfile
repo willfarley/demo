@@ -19,6 +19,7 @@ pipeline {
         }
         steps {
           container('maven') {
+            sh "telnet stash.gfk.com 443"
             sh "mvn versions:set -DnewVersion=$PREVIEW_VERSION"
             sh "mvn install"
             sh 'export VERSION=$PREVIEW_VERSION && skaffold build -f skaffold.yaml'
